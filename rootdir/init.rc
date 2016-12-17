@@ -20,7 +20,6 @@ on early-init
     # This should occur before anything else (e.g. ueventd) is started.
     setcon u:r:init:s0
 
-    start ueventd
 
 # create mountpoints
     mkdir /mnt 0775 root system
@@ -242,10 +241,7 @@ on post-fs-data
     #setprop vold.post_fs_data_done 1
 
 on boot
-# basic network init
-    ifup lo
-    hostname localhost
-    domainname localdomain
+
 
 # set RLIMIT_NICE to allow priorities from 19 to -20
     setrlimit 13 40 40
@@ -533,14 +529,6 @@ service dumpstate /system/bin/dumpstate -s
 service sshd /system/bin/start-ssh
     class main
     disabled
-
-service mdnsd /system/bin/mdnsd
-    class main
-    user mdnsr
-    group inet net_raw
-    socket mdnsd stream 0660 mdnsr inet
-    disabled
-    oneshot
 
 service fakeperm /system/bin/fakeperm
     class main
