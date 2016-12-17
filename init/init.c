@@ -1039,7 +1039,8 @@ int main(int argc, char **argv)
     is_ffbm = !strncmp(bootmode, "ffbm", 4);
     if (!is_ffbm)
         is_charger = !strcmp(bootmode, "charger");
-
+/* Mer will assume we're not on charger for now */
+    is_charger = 0;
     INFO("property init\n");
     if (!is_charger)
         property_load_boot_defaults();
